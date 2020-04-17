@@ -1,0 +1,263 @@
+11Step:
+
+deevee@deveeking MINGW64 ~/Downloads/TestGit (master)
+$ git config --global alias.ci commit
+---------
+deevee@deveeking MINGW64 ~/Downloads/TestGit (master)
+$ git config --global alias.st status
+----------
+deevee@deveeking MINGW64 ~/Downloads/TestGit (master)
+$ git config --global alias.br branch
+----------
+deevee@deveeking MINGW64 ~/Downloads/TestGit (master)
+$ git config --global alias.hist "log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short"
+----------
+deevee@deveeking MINGW64 ~/Downloads/TestGit (master)
+$ git config --global alias.type 'cat-file -t'
+----------
+deevee@deveeking MINGW64 ~/Downloads/TestGit (master)
+$ git config --global alias.dump 'cat-file -p'
+
+
+12Step:
+
+deevee@deveeking MINGW64 ~/Downloads/TestGit (master)
+$ git hist
+* eb9d1e7 2020-03-03 | Moved hello.html (HEAD -> master) [Andrew]
+* 23c10fc 2020-03-03 | Add an author/email [Andrew]
+* 7cd6506 2020-02-27 | Added HTML header (tag: v1) [Andrew]
+* 7caefa1 2020-02-27 | Added standard HTML page tags (tag: v1-beta) [Andrew]
+* 56499a0 2020-02-27 | Unrelated change to c [Andrew]
+* 640fc22 2020-02-27 | Changes for a and b [Andrew]
+* d160515 2020-02-27 | First Commit [Andrew]
+--------------------------
+deevee@deveeking MINGW64 ~/Downloads/TestGit (master)
+$ git checkout master
+Already on 'master'
+D       lib/hello.html
+
+deevee@deveeking MINGW64 ~/Downloads/TestGit (master)
+$ cat hello.html
+<!DOCTYPE html>
+
+
+<head>
+   <meta charset = "utf-8">
+   <title>LB_7</title>
+</head>
+
+
+13Step:
+
+$ git checkout v1^
+error: The following untracked working tree files would be overwritten by checkout:
+        hello.html
+Please move or remove them before you switch branches.
+Aborting
+----------------
+deevee@deveeking MINGW64 ~/Downloads/TestGit (master)
+$ git checkout v1
+error: The following untracked working tree files would be overwritten by checkout:
+        hello.html
+Please move or remove them before you switch branches.
+Aborting
+--------------------
+deevee@deveeking MINGW64 ~/Downloads/TestGit (master)
+$ git checkout v1-beta
+error: The following untracked working tree files would be overwritten by checkout:
+        hello.html
+Please move or remove them before you switch branches.
+Aborting
+----------------------
+deevee@deveeking MINGW64 ~/Downloads/TestGit (master)
+$ git tag
+v1
+v1-beta
+----------------------
+deevee@deveeking MINGW64 ~/Downloads/TestGit (master)
+$ git hist master --all
+* eb9d1e7 2020-03-03 | Moved hello.html (HEAD -> master) [Andrew]
+* 23c10fc 2020-03-03 | Add an author/email [Andrew]
+* 7cd6506 2020-02-27 | Added HTML header (tag: v1) [Andrew]
+* 7caefa1 2020-02-27 | Added standard HTML page tags (tag: v1-beta) [Andrew]
+* 56499a0 2020-02-27 | Unrelated change to c [Andrew]
+* 640fc22 2020-02-27 | Changes for a and b [Andrew]
+* d160515 2020-02-27 | First Commit [Andrew]
+
+
+14Step:
+
+$ git status
+On branch master
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   hello.html
+
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   hello.html
+
+-----------------------
+deevee@deveeking MINGW64 ~/Downloads/TestGit (master)
+$ git checkout hello.html
+Updated 1 path from the index
+
+deevee@deveeking MINGW64 ~/Downloads/TestGit (master)
+$ git status
+On branch master
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   hello.html
+
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+
+
+15Step:
+
+deevee@deveeking MINGW64 ~/Downloads/TestGit (master)
+$ git add hello.html
+
+deevee@deveeking MINGW64 ~/Downloads/TestGit (master)
+$ git status
+On branch master
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   hello.html
+
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+
+----------------------
+deevee@deveeking MINGW64 ~/Downloads/TestGit (master)
+$ git reset HEAD hello.html
+Unstaged changes after reset:
+D       lib/hello.html
+
+------------------------
+
+16Step:
+
+deevee@deveeking MINGW64 ~/Downloads/TestGit (master)
+$ git add hello.html
+
+deevee@deveeking MINGW64 ~/Downloads/TestGit (master)
+$ git commit -m "Oops, we didn't want this commit"
+[master a62a71a] Oops, we didn't want this commit
+ 1 file changed, 70 insertions(+)
+ create mode 100644 hello.html
+
+deevee@deveeking MINGW64 ~/Downloads/TestGit (master)
+$ git revert HEAD
+Removing hello.html
+hint: Waiting for your editor to close the file... error: There was a problem with the editor 'vi'.
+Please supply the message using either -m or -F option.
+
+----------------------
+deevee@deveeking MINGW64 ~/Downloads/TestGit (master)
+$ git hist
+* a62a71a 2020-03-09 | Oops, we didn't want this commit (HEAD -> master) [Andrew]
+* eb9d1e7 2020-03-03 | Moved hello.html [Andrew]
+* 23c10fc 2020-03-03 | Add an author/email [Andrew]
+* 7cd6506 2020-02-27 | Added HTML header (tag: v1) [Andrew]
+* 7caefa1 2020-02-27 | Added standard HTML page tags (tag: v1-beta) [Andrew]
+* 56499a0 2020-02-27 | Unrelated change to c [Andrew]
+* 640fc22 2020-02-27 | Changes for a and b [Andrew]
+* d160515 2020-02-27 | First Commit [Andrew]
+
+
+17Step:
+
+deevee@deveeking MINGW64 ~/Downloads/TestGit (master)
+$ git tag oops
+
+deevee@deveeking MINGW64 ~/Downloads/TestGit (master)
+$ git reset --hard v1
+HEAD is now at 7cd6506 Added HTML header
+
+deevee@deveeking MINGW64 ~/Downloads/TestGit (master)
+$ git hist
+* 7cd6506 2020-02-27 | Added HTML header (HEAD -> master, tag: v1) [Andrew]
+* 7caefa1 2020-02-27 | Added standard HTML page tags (tag: v1-beta) [Andrew]
+* 56499a0 2020-02-27 | Unrelated change to c [Andrew]
+* 640fc22 2020-02-27 | Changes for a and b [Andrew]
+* d160515 2020-02-27 | First Commit [Andrew]
+
+---------------------------
+ deevee@deveeking MINGW64 ~/Downloads/TestGit (master)
+$ git hist --all
+* a62a71a 2020-03-09 | Oops, we didn't want this commit (tag: oops) [Andrew]
+* eb9d1e7 2020-03-03 | Moved hello.html [Andrew]
+* 23c10fc 2020-03-03 | Add an author/email [Andrew]
+* 7cd6506 2020-02-27 | Added HTML header (HEAD -> master, tag: v1) [Andrew]
+* 7caefa1 2020-02-27 | Added standard HTML page tags (tag: v1-beta) [Andrew]
+* 56499a0 2020-02-27 | Unrelated change to c [Andrew]
+* 640fc22 2020-02-27 | Changes for a and b [Andrew]
+* d160515 2020-02-27 | First Commit [Andrew]
+
+
+18Step:
+
+deevee@deveeking MINGW64 ~/Downloads/TestGit (master)
+$ git tag -d oops
+Deleted tag 'oops' (was a62a71a)
+
+deevee@deveeking MINGW64 ~/Downloads/TestGit (master)
+$ git hist --all
+* 7cd6506 2020-02-27 | Added HTML header (HEAD -> master, tag: v1) [Andrew]
+* 7caefa1 2020-02-27 | Added standard HTML page tags (tag: v1-beta) [Andrew]
+* 56499a0 2020-02-27 | Unrelated change to c [Andrew]
+* 640fc22 2020-02-27 | Changes for a and b [Andrew]
+* d160515 2020-02-27 | First Commit [Andrew]
+
+19Step:
+
+deevee@deveeking MINGW64 ~/Downloads/TestGit (master)
+$ git add hello.html
+
+deevee@deveeking MINGW64 ~/Downloads/TestGit (master)
+$ git commit -m "Add an author comment"
+[master 7e4cc70] Add an author comment
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+deevee@deveeking MINGW64 ~/Downloads/TestGit (master)
+$ git add hello.html
+
+deevee@deveeking MINGW64 ~/Downloads/TestGit (master)
+$ git commit --amend -m "Add an author/email comment"
+[master a33c4dc] Add an author/email comment
+ Date: Mon Mar 9 22:50:51 2020 +0200
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+---------------------
+deevee@deveeking MINGW64 ~/Downloads/TestGit (master)
+$ git hist
+* a33c4dc 2020-03-09 | Add an author/email comment (HEAD -> master) [Andrew]
+* 7cd6506 2020-02-27 | Added HTML header (tag: v1) [Andrew]
+* 7caefa1 2020-02-27 | Added standard HTML page tags (tag: v1-beta) [Andrew]
+* 56499a0 2020-02-27 | Unrelated change to c [Andrew]
+* 640fc22 2020-02-27 | Changes for a and b [Andrew]
+* d160515 2020-02-27 | First Commit [Andrew]
+
+20Step:
+
+deevee@deveeking MINGW64 ~/Downloads/TestGit (master)
+$ mkdir lib
+git status
+deevee@deveeking MINGW64 ~/Downloads/TestGit (master)
+$ git mv hello.html lib
+
+deevee@deveeking MINGW64 ~/Downloads/TestGit (master)
+$ git status
+On branch master
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        renamed:    hello.html -> lib/hello.html
+
+
+
+
+
